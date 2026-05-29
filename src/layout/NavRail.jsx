@@ -16,6 +16,13 @@ export function NavRail({ active, onSelect }) {
       >
         Memory
       </button>
+
+      <button
+        className={active === "pattern" ? "active" : ""}
+        onClick={() => onSelect("pattern")}
+      >
+        Pattern
+      </button>
     </div>
   );
 }
