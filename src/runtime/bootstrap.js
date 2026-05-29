@@ -1,5 +1,6 @@
 import { loadMemoryModule } from "../modules/memory/index.js";
 import { loadPatternModule } from "../modules/pattern/index.js";
+import { loadBeeSimModule } from "../modules/beesim/index.js";
 
 if (!window.Portal) window.Portal = {};
 if (!window.Portal.modules) window.Portal.modules = {};
@@ -10,8 +11,7 @@ window.Portal.registry.identity = {
   label: "Identity"
 };
 
-// Load Memory
+// Load modules
 loadMemoryModule(window.Portal);
-
-// Load Pattern
 loadPatternModule(window.Portal);
+loadBeeSimModule(window.Portal);
