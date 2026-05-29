@@ -23,6 +23,13 @@ export function NavRail({ active, onSelect }) {
       >
         Pattern
       </button>
+
+      <button
+        className={active === "beesim" ? "active" : ""}
+        onClick={() => onSelect("beesim")}
+      >
+        Bee‑SIM
+      </button>
     </div>
   );
 }
