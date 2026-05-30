@@ -1,39 +1,134 @@
-
 import React from "react";
 
 export function NavRail({ active, onSelect }) {
-  const items = [
-    { key: "identity", label: "Identity" },
-    { key: "memory", label: "Memory" },
-    { key: "pattern", label: "Pattern" },
-    { key: "beesim", label: "Bee‑SIM" },
-    { key: "sovereignty", label: "Sovereignty" },
-    { key: "console", label: "Console" },
-    { key: "dashboard", label: "Dashboard" },
-    { key: "theme", label: "Theme" },
-    { key: "animation", label: "Animation" },
-    { key: "sound", label: "Sound" },
-    { key: "storage", label: "Storage" },
-    { key: "network", label: "Network" },
-    { key: "inspector", label: "Inspector" },
-    { key: "vfs", label: "VFS" },
-    { key: "scheduler", label: "Scheduler" },
-    { key: "cloud", label: "Cloud" },
-    { key: "permissions", label: "Permissions" },
-    { key: "eventbus", label: "Event Bus" }
-  ];
-
   return (
     <div className="nav-rail">
-      {items.map((item) => (
-        <div
-          key={item.key}
-          className={`nav-item ${active === item.key ? "active" : ""}`}
-          onClick={() => onSelect(item.key)}
-        >
-          {item.label}
-        </div>
-      ))}
+      <button
+        className={active === "identity" ? "active" : ""}
+        onClick={() => onSelect("identity")}
+      >
+        Identity
+      </button>
+
+      <button
+        className={active === "memory" ? "active" : ""}
+        onClick={() => onSelect("memory")}
+      >
+        Memory
+      </button>
+
+      <button
+        className={active === "pattern" ? "active" : ""}
+        onClick={() => onSelect("pattern")}
+      >
+        Pattern
+      </button>
+
+      <button
+        className={active === "beesim" ? "active" : ""}
+        onClick={() => onSelect("beesim")}
+      >
+        Bee‑SIM
+      </button>
+
+      <button
+        className={active === "sovereignty" ? "active" : ""}
+        onClick={() => onSelect("sovereignty")}
+      >
+        Sovereignty
+      </button>
+
+      <button
+        className={active === "console" ? "active" : ""}
+        onClick={() => onSelect("console")}
+      >
+        Console
+      </button>
+
+      <button
+        className={active === "dashboard" ? "active" : ""}
+        onClick={() => onSelect("dashboard")}
+      >
+        Dashboard
+      </button>
+
+      <button
+        className={active === "theme" ? "active" : ""}
+        onClick={() => onSelect("theme")}
+      >
+        Theme
+      </button>
+
+      <button
+        className={active === "animation" ? "active" : ""}
+        onClick={() => onSelect("animation")}
+      >
+        Animation
+      </button>
+
+      <button
+        className={active === "sound" ? "active" : ""}
+        onClick={() => onSelect("sound")}
+      >
+        Sound
+      </button>
+
+      <button
+        className={active === "storage" ? "active" : ""}
+        onClick={() => onSelect("storage")}
+      >
+        Storage
+      </button>
+
+      <button
+        className={active === "network" ? "active" : ""}
+        onClick={() => onSelect("network")}
+      >
+        Network
+      </button>
+
+      <button
+        className={active === "inspector" ? "active" : ""}
+        onClick={() => onSelect("inspector")}
+      >
+        Inspector
+      </button>
+
+      <button
+        className={active === "vfs" ? "active" : ""}
+        onClick={() => onSelect("vfs")}
+      >
+        VFS
+      </button>
+
+      <button
+        className={active === "scheduler" ? "active" : ""}
+        onClick={() => onSelect("scheduler")}
+      >
+        Scheduler
+      </button>
+
+      <button
+        className={active === "cloud" ? "active" : ""}
+        onClick={() => onSelect("cloud")}
+      >
+        Cloud
+      </button>
+
+      <button
+        className={active === "permissions" ? "active" : ""}
+        onClick={() => onSelect("permissions")}
+      >
+        Permissions
+      </button>
+
+      <button
+        className={active === "eventbus" ? "active" : ""}
+        onClick={() => onSelect("eventbus")}
+      >
+        EventBus
+      </button>
     </div>
   );
 }
+
