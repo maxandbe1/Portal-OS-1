@@ -100,6 +100,13 @@ export function NavRail({ active, onSelect }) {
       >
         VFS
       </button>
+
+      <button
+        className={active === "scheduler" ? "active" : ""}
+        onClick={() => onSelect("scheduler")}
+      >
+        Scheduler
+      </button>
     </div>
   );
 }
