@@ -1,3 +1,4 @@
+
 import React from "react";
 
 export function NavRail({ active, onSelect }) {
@@ -113,6 +114,13 @@ export function NavRail({ active, onSelect }) {
         onClick={() => onSelect("cloud")}
       >
         Cloud
+      </button>
+
+      <button
+        className={active === "permissions" ? "active" : ""}
+        onClick={() => onSelect("permissions")}
+      >
+        Permissions
       </button>
     </div>
   );
