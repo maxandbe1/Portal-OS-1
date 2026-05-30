@@ -1,29 +1,40 @@
-import { loadThemeModule } from "../modules/theme/index.js";
-import { loadMemoryModule } from "../modules/memory/index.js";
-import { loadPatternModule } from "../modules/pattern/index.js";
-import { loadBeeSimModule } from "../modules/beesim/index.js";
-import { loadSovereigntyModule } from "../modules/sovereignty/index.js";
+import { useState, useEffect } from "react";
 
+// Phase‑8 Theme Engine
+import ThemeEngine from "../../public/modules/theme/engine.js";
 
+// Phase‑12 Sound Engine
+import SoundEngine from "../../public/modules/sound/engine.js";
 
-import { loadDashboardModule } from "../modules/dashboard/index.js";
+// Phase‑16 Permissions Layer
+import Permissions from "../../public/modules/permissions/engine.js";
 
-if (!window.Portal) window.Portal = {};
-if (!window.Portal.modules) window.Portal.modules = {};
-if (!window.Portal.registry) window.Portal.registry = {};
+// Phase‑4 Console (corrected import)
+import Console from "../../public/modules/console/module-ui.js";
 
-window.Portal.registry.identity = {
-  key: "identity",
-  label: "Identity"
-};
+// Phase‑17 Event Bus (pre‑mesh hook)
+import EventBus from "../../public/modules/eventbus/engine.js";
 
-// Load Theme FIRST
-loadThemeModule(window.Portal);
+export default function ThemeView() {
+  const [themeVars, setThemeVars] = useState({});
+  const [permissions, setPermissions] = useState({});
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
-// Load all other modules
-loadMemoryModule(window.Portal);
-loadPatternModule(window.Portal);
-loadBeeSimModule(window.Portal);
-loadSovereigntyModule(window.Portal);
-loadConsoleModule(window.Portal);
-loadDashboardModule(window.Portal);
+  // Load Theme Engine
+  useEffect(() => {
+    const vars = ThemeEngine.getAll();
+    setThemeVars(vars);
+  }, []);
+
+  // Load Permissions
+  useEffect(() => {
+    const p = Permissions.getAll();
+    setPermissions(p);
+  }, []);
+
+  // Load Sound Engine
+  useEffect(() => {
+    SoundEngine.init();
+  }, []);
+
+  // Phase‑17 Event
