@@ -2,6 +2,7 @@ import { loadThemeModule } from "../modules/theme/index.js";
 import { loadAnimationModule } from "../modules/animation/index.js";
 import { loadSoundModule } from "../modules/sound/index.js";
 import { loadStorageModule } from "../modules/storage/index.js";
+import { loadNetworkModule } from "../modules/network/index.js";
 
 import { loadMemoryModule } from "../modules/memory/index.js";
 import { loadPatternModule } from "../modules/pattern/index.js";
@@ -19,11 +20,12 @@ window.Portal.registry.identity = {
   label: "Identity"
 };
 
-// Theme → Animation → Sound → Storage → Everything else
+// Theme → Animation → Sound → Storage → Network → Everything else
 loadThemeModule(window.Portal);
 loadAnimationModule(window.Portal);
 loadSoundModule(window.Portal);
 loadStorageModule(window.Portal);
+loadNetworkModule(window.Portal);
 
 loadMemoryModule(window.Portal);
 loadPatternModule(window.Portal);
