@@ -10,6 +10,8 @@ import DashboardView from "../views/DashboardView.jsx";
 import ThemeView from "../views/ThemeView.jsx";
 import AnimationView from "../views/AnimationView.jsx";
 import SoundView from "../views/SoundView.jsx";
+import StorageView from "../views/StorageView.jsx";
+import NetworkView from "../views/NetworkView.jsx";
 
 export default function Viewport({ active }) {
   if (active === "identity") return <IdentityView />;
@@ -22,6 +24,8 @@ export default function Viewport({ active }) {
   if (active === "theme") return <ThemeView />;
   if (active === "animation") return <AnimationView />;
   if (active === "sound") return <SoundView />;
+  if (active === "storage") return <StorageView />;
+  if (active === "network") return <NetworkView />;
 
   return (
     <div className="module-root">
