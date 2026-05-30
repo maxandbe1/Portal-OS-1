@@ -51,6 +51,13 @@ export function NavRail({ active, onSelect }) {
       >
         Dashboard
       </button>
+
+      <button
+        className={active === "theme" ? "active" : ""}
+        onClick={() => onSelect("theme")}
+      >
+        Theme
+      </button>
     </div>
   );
 }
