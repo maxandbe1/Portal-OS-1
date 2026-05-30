@@ -1,8 +1,9 @@
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import "./styles.css";
 import { bootstrapPortal } from "./runtime/bootstrap.js";
+import "./styles.css";
 
 bootstrapPortal();
 
@@ -11,4 +12,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <App />
   </React.StrictMode>
 );
-
