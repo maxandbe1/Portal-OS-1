@@ -1,22 +1,49 @@
 
-import { loadEventBusModule } from "../modules/eventbus/index.js";
+import React from "react";
 
-// Theme → Animation → Sound → Storage → Network → Inspector → VFS → Scheduler → Cloud → Permissions → EventBus → Everything else
-loadThemeModule(window.Portal);
-loadAnimationModule(window.Portal);
-loadSoundModule(window.Portal);
-loadStorageModule(window.Portal);
-loadNetworkModule(window.Portal);
-loadInspectorModule(window.Portal);
-loadVFSModule(window.Portal);
-loadSchedulerModule(window.Portal);
-loadCloudModule(window.Portal);
-loadPermissionsModule(window.Portal);
-loadEventBusModule(window.Portal);
+import IdentityView from "../views/IdentityView.jsx";
+import MemoryView from "../views/MemoryView.jsx";
+import PatternView from "../views/PatternView.jsx";
+import BeeSimView from "../views/BeeSimView.jsx";
+import SovereigntyView from "../views/SovereigntyView.jsx";
+import ConsoleView from "../views/ConsoleView.jsx";
+import DashboardView from "../views/DashboardView.jsx";
+import ThemeView from "../views/ThemeView.jsx";
+import AnimationView from "../views/AnimationView.jsx";
+import SoundView from "../views/SoundView.jsx";
+import StorageView from "../views/StorageView.jsx";
+import NetworkView from "../views/NetworkView.jsx";
+import InspectorView from "../views/InspectorView.jsx";
+import VFSView from "../views/VFSView.jsx";
+import SchedulerView from "../views/SchedulerView.jsx";
+import CloudView from "../views/CloudView.jsx";
+import PermissionsView from "../views/PermissionsView.jsx";
+import EventBusView from "../views/EventBusView.jsx";
 
-loadMemoryModule(window.Portal);
-loadPatternModule(window.Portal);
-loadBeeSimModule(window.Portal);
-loadSovereigntyModule(window.Portal);
-loadConsoleModule(window.Portal);
-loadDashboardModule(window.Portal);
+export default function Viewport({ active }) {
+  if (active === "identity") return <IdentityView />;
+  if (active === "memory") return <MemoryView />;
+  if (active === "pattern") return <PatternView />;
+  if (active === "beesim") return <BeeSimView />;
+  if (active === "sovereignty") return <SovereigntyView />;
+  if (active === "console") return <ConsoleView />;
+  if (active === "dashboard") return <DashboardView />;
+  if (active === "theme") return <ThemeView />;
+  if (active === "animation") return <AnimationView />;
+  if (active === "sound") return <SoundView />;
+  if (active === "storage") return <StorageView />;
+  if (active === "network") return <NetworkView />;
+  if (active === "inspector") return <InspectorView />;
+  if (active === "vfs") return <VFSView />;
+  if (active === "scheduler") return <SchedulerView />;
+  if (active === "cloud") return <CloudView />;
+  if (active === "permissions") return <PermissionsView />;
+  if (active === "eventbus") return <EventBusView />;
+
+  return (
+    <div className="module-root">
+      <h1>Portal OS</h1>
+      <p className="module-subtitle">Select a module from the left.</p>
+    </div>
+  );
+}
