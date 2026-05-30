@@ -4,17 +4,25 @@ import React from "react";
 const items = [
   { key: "identity", label: "Identity" },
   { key: "memory", label: "Memory" },
-  { key: "beesim", label: "Bee‑SIM" },
   { key: "pattern", label: "Pattern" },
+  { key: "beesim", label: "Bee‑SIM" },
+  { key: "sovereignty", label: "Sovereignty" },
+  { key: "console", label: "Console" },
   { key: "dashboard", label: "Dashboard" },
-  { key: "mesh", label: "Mesh" },
-  { key: "cloud", label: "Cloud" },
-  { key: "vfs", label: "VFS" },
+  { key: "theme", label: "Theme" },
+  { key: "animation", label: "Animation" },
+  { key: "sound", label: "Sound" },
   { key: "storage", label: "Storage" },
-  { key: "inspector", label: "Inspector" }
+  { key: "network", label: "Network" },
+  { key: "inspector", label: "Inspector" },
+  { key: "vfs", label: "VFS" },
+  { key: "scheduler", label: "Scheduler" },
+  { key: "cloud", label: "Cloud" },
+  { key: "permissions", label: "Permissions" },
+  { key: "eventbus", label: "Event Bus" }
 ];
 
-export function NavRail({ active, onSelect }) {
+export default function NavRail({ active, onSelect }) {
   return (
     <div className="nav-rail">
       {items.map((item) => (
