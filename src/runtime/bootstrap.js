@@ -23,15 +23,16 @@ window.Portal.registry.identity = {
   label: "Identity"
 };
 
-// Load order:
-// Theme → Animation → Sound → Storage → Network → Inspector → Everything else
+import { loadVFSModule } from "../modules/vfs/index.js";
 
+// Theme → Animation → Sound → Storage → Network → Inspector → VFS → Everything else
 loadThemeModule(window.Portal);
 loadAnimationModule(window.Portal);
 loadSoundModule(window.Portal);
 loadStorageModule(window.Portal);
 loadNetworkModule(window.Portal);
 loadInspectorModule(window.Portal);
+loadVFSModule(window.Portal);
 
 loadMemoryModule(window.Portal);
 loadPatternModule(window.Portal);
