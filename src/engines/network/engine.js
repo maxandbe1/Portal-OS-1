@@ -1,34 +1,64 @@
-import React from "react";
+// src/engines/network/engine.js
 
-import IdentityView from "../views/IdentityView.jsx";
-import MemoryView from "../views/MemoryView.jsx";
-import PatternView from "../views/PatternView.jsx";
-import BeeSimView from "../views/BeeSimView.jsx";
-import SovereigntyView from "../views/SovereigntyView.jsx";
-import ConsoleView from "../views/ConsoleView.jsx";
-import DashboardView from "../views/DashboardView.jsx";
-import ThemeView from "../views/ThemeView.jsx";
-import AnimationView from "../views/AnimationView.jsx";
-import SoundView from "../views/SoundView.jsx";
-import StorageView from "../views/StorageView.jsx";
+export async function request(url, options = {}) {
+  const {
+    method = "GET",
+    headers = {},
+    body = null,
+    timeout = 8000
+  } = options;
 
-export default function Viewport({ active }) {
-  if (active === "identity") return <IdentityView />;
-  if (active === "memory") return <MemoryView />;
-  if (active === "pattern") return <PatternView />;
-  if (active === "beesim") return <BeeSimView />;
-  if (active === "sovereignty") return <SovereigntyView />;
-  if (active === "console") return <ConsoleView />;
-  if (active === "dashboard") return <DashboardView />;
-  if (active === "theme") return <ThemeView />;
-  if (active === "animation") return <AnimationView />;
-  if (active === "sound") return <SoundView />;
-  if (active === "storage") return <StorageView />;
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
 
-  return (
-    <div className="module-root">
-      <h1>Portal OS</h1>
-      <p className="module-subtitle">Select a module from the left.</p>
-    </div>
-  );
+  try {
+    const res = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      },
+      body: body ? JSON.stringify(body) : null,
+      signal: controller.signal
+    });
+
+    clearTimeout(id);
+
+    const text = await res.text();
+    let json = null;
+
+    try {
+      json = JSON.parse(text);
+    } catch {
+      json = text;
+    }
+
+    return {
+      ok: res.ok,
+      status: res.status,
+      data: json
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      status: 0,
+      error: err.message || "Network error"
+    };
+  }
+}
+
+export function get(url, timeout = 8000) {
+  return request(url, { method: "GET", timeout });
+}
+
+export function post(url, body, timeout = 8000) {
+  return request(url, { method: "POST", body, timeout });
+}
+
+export function put(url, body, timeout = 8000) {
+  return request(url, { method: "PUT", body, timeout });
+}
+
+export function del(url, timeout = 8000) {
+  return request(url, { method: "DELETE", timeout });
 }
