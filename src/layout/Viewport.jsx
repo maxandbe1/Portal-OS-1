@@ -15,6 +15,7 @@ import NetworkView from "../views/NetworkView.jsx";
 import InspectorView from "../views/InspectorView.jsx";
 import VFSView from "../views/VFSView.jsx";
 import SchedulerView from "../views/SchedulerView.jsx";
+import CloudView from "../views/CloudView.jsx";
 
 export default function Viewport({ active }) {
   if (active === "identity") return <IdentityView />;
@@ -32,6 +33,7 @@ export default function Viewport({ active }) {
   if (active === "inspector") return <InspectorView />;
   if (active === "vfs") return <VFSView />;
   if (active === "scheduler") return <SchedulerView />;
+  if (active === "cloud") return <CloudView />;
 
   return (
     <div className="module-root">
