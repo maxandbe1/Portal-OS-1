@@ -107,6 +107,13 @@ export function NavRail({ active, onSelect }) {
       >
         Scheduler
       </button>
+
+      <button
+        className={active === "cloud" ? "active" : ""}
+        onClick={() => onSelect("cloud")}
+      >
+        Cloud
+      </button>
     </div>
   );
 }
