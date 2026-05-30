@@ -27,15 +27,23 @@ export function NavRail({ active, onSelect }) {
       <button
         className={active === "beesim" ? "active" : ""}
         onClick={() => onSelect("beesim")}
-      ><button
-       className={active === "sovereignty" ? "active" : ""}
-       onClick={() => onSelect("sovereignty")}
-      >Sovereignty
-     </button>
-
+      >
         Bee‑SIM
       </button>
-      
+
+      <button
+        className={active === "sovereignty" ? "active" : ""}
+        onClick={() => onSelect("sovereignty")}
+      >
+        Sovereignty
+      </button>
+
+      <button
+        className={active === "console" ? "active" : ""}
+        onClick={() => onSelect("console")}
+      >
+        Console
+      </button>
     </div>
   );
 }
