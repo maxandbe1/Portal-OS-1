@@ -1,49 +1,53 @@
+// File: src/runtime/bootstrap.js
+// Portal‑OS Phase‑17 Runtime Bootstrap
 
-import React from "react";
+import { loadIdentityModule } from "../modules/identity/bridge.js";
+import { loadMemoryModule } from "../modules/memory/bridge.js";
+import { loadPatternModule } from "../modules/pattern/bridge.js";
+import { loadBeeSimModule } from "../modules/beesim/bridge.js";
+import { loadSovereigntyModule } from "../modules/sovereignty/bridge.js";
+import { loadConsoleModule } from "../modules/console/bridge.js";
+import { loadDashboardModule } from "../modules/dashboard/bridge.js";
+import { loadThemeModule } from "../modules/theme/bridge.js";
+import { loadAnimationModule } from "../modules/animation/bridge.js";
+import { loadSoundModule } from "../modules/sound/bridge.js";
+import { loadStorageModule } from "../modules/storage/bridge.js";
+import { loadNetworkModule } from "../modules/network/bridge.js";
+import { loadInspectorModule } from "../modules/inspector/bridge.js";
+import { loadVFSModule } from "../modules/vfs/bridge.js";
+import { loadSchedulerModule } from "../modules/scheduler/bridge.js";
+import { loadCloudModule } from "../modules/cloud/bridge.js";
+import { loadPermissionsModule } from "../modules/permissions/bridge.js";
+import { loadEventBusModule } from "../modules/eventbus/bridge.js";
+import { loadMeshModule } from "../modules/mesh/bridge.js";
 
-import IdentityView from "../views/IdentityView.jsx";
-import MemoryView from "../views/MemoryView.jsx";
-import PatternView from "../views/PatternView.jsx";
-import BeeSimView from "../views/BeeSimView.jsx";
-import SovereigntyView from "../views/SovereigntyView.jsx";
-import ConsoleView from "../views/ConsoleView.jsx";
-import DashboardView from "../views/DashboardView.jsx";
-import ThemeView from "../views/ThemeView.jsx";
-import AnimationView from "../views/AnimationView.jsx";
-import SoundView from "../views/SoundView.jsx";
-import StorageView from "../views/StorageView.jsx";
-import NetworkView from "../views/NetworkView.jsx";
-import InspectorView from "../views/InspectorView.jsx";
-import VFSView from "../views/VFSView.jsx";
-import SchedulerView from "../views/SchedulerView.jsx";
-import CloudView from "../views/CloudView.jsx";
-import PermissionsView from "../views/PermissionsView.jsx";
-import EventBusView from "../views/EventBusView.jsx";
+if (!window.Portal) window.Portal = {};
+if (!window.Portal.modules) window.Portal.modules = {};
+if (!window.Portal.registry) window.Portal.registry = {};
 
-export default function Viewport({ active }) {
-  if (active === "identity") return <IdentityView />;
-  if (active === "memory") return <MemoryView />;
-  if (active === "pattern") return <PatternView />;
-  if (active === "beesim") return <BeeSimView />;
-  if (active === "sovereignty") return <SovereigntyView />;
-  if (active === "console") return <ConsoleView />;
-  if (active === "dashboard") return <DashboardView />;
-  if (active === "theme") return <ThemeView />;
-  if (active === "animation") return <AnimationView />;
-  if (active === "sound") return <SoundView />;
-  if (active === "storage") return <StorageView />;
-  if (active === "network") return <NetworkView />;
-  if (active === "inspector") return <InspectorView />;
-  if (active === "vfs") return <VFSView />;
-  if (active === "scheduler") return <SchedulerView />;
-  if (active === "cloud") return <CloudView />;
-  if (active === "permissions") return <PermissionsView />;
-  if (active === "eventbus") return <EventBusView />;
+export function bootstrapPortal() {
+  console.log("%cPortal Runtime Booting…", "color:#0ff;font-weight:bold;");
 
-  return (
-    <div className="module-root">
-      <h1>Portal OS</h1>
-      <p className="module-subtitle">Select a module from the left.</p>
-    </div>
-  );
+  loadIdentityModule();
+  loadMemoryModule();
+  loadPatternModule();
+  loadBeeSimModule();
+  loadSovereigntyModule();
+  loadConsoleModule();
+  loadDashboardModule();
+  loadThemeModule();
+  loadAnimationModule();
+  loadSoundModule();
+  loadStorageModule();
+  loadNetworkModule();
+  loadInspectorModule();
+  loadVFSModule();
+  loadSchedulerModule();
+  loadCloudModule();
+  loadPermissionsModule();
+  loadEventBusModule();
+  loadMeshModule();
+
+  console.log("%cPortal Runtime Ready", "color:#0f0;font-weight:bold;");
 }
+
