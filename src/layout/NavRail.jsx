@@ -1,4 +1,3 @@
-
 import React from "react";
 
 const items = [
@@ -22,7 +21,7 @@ const items = [
   { key: "eventbus", label: "Event Bus" }
 ];
 
-export default function NavRail({ active, onSelect }) {
+export function NavRail({ active, onSelect }) {
   return (
     <div className="nav-rail">
       {items.map((item) => (
