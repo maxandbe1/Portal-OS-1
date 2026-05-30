@@ -44,6 +44,13 @@ export function NavRail({ active, onSelect }) {
       >
         Console
       </button>
+
+      <button
+        className={active === "dashboard" ? "active" : ""}
+        onClick={() => onSelect("dashboard")}
+      >
+        Dashboard
+      </button>
     </div>
   );
 }
