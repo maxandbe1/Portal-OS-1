@@ -1,0 +1,23 @@
+{
+  "identity": "identity/index.js",
+  "memory": "memory/index.js",
+  "beesim": "beesim/index.js",
+  "pattern": "pattern/index.js",
+  "inspector": "inspector/index.js",
+  "console": "console/index.js",
+  "sovereignty": "sovereignty/index.js",
+  "ecosystem": "ecosystem/index.js",
+  "animation": "animation/index.js",
+  "sound": "sound/index.js",
+  "theme": "theme/index.js",
+  "dashboard": "dashboard/index.js",
+  "timeline": "timeline/index.js",
+  "mesh": "mesh/index.js",
+  "translation": "translation/index.js",
+  "events": "events/index.js",
+  "signals": "signals/index.js",
+  "physics": "physics/index.js",
+  "vfs": "vfs/index.js",
+  "storage": "storage/index.js",
+  "cloud": "cloud/index.js"
+}
