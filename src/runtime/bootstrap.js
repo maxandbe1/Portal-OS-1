@@ -1,5 +1,7 @@
 import { loadThemeModule } from "../modules/theme/index.js";
 import { loadAnimationModule } from "../modules/animation/index.js";
+import { loadSoundModule } from "../modules/sound/index.js";
+
 import { loadMemoryModule } from "../modules/memory/index.js";
 import { loadPatternModule } from "../modules/pattern/index.js";
 import { loadBeeSimModule } from "../modules/beesim/index.js";
@@ -16,13 +18,11 @@ window.Portal.registry.identity = {
   label: "Identity"
 };
 
-// Theme first
+// Theme → Animation → Sound → Everything else
 loadThemeModule(window.Portal);
-
-// Animation second
 loadAnimationModule(window.Portal);
+loadSoundModule(window.Portal);
 
-// Then everything else
 loadMemoryModule(window.Portal);
 loadPatternModule(window.Portal);
 loadBeeSimModule(window.Portal);
