@@ -72,6 +72,13 @@ export function NavRail({ active, onSelect }) {
       >
         Sound
       </button>
+
+      <button
+        className={active === "storage" ? "active" : ""}
+        onClick={() => onSelect("storage")}
+      >
+        Storage
+      </button>
     </div>
   );
 }
