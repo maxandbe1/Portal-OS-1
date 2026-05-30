@@ -86,6 +86,20 @@ export function NavRail({ active, onSelect }) {
       >
         Network
       </button>
+
+      <button
+        className={active === "inspector" ? "active" : ""}
+        onClick={() => onSelect("inspector")}
+      >
+        Inspector
+      </button>
+
+      <button
+        className={active === "vfs" ? "active" : ""}
+        onClick={() => onSelect("vfs")}
+      >
+        VFS
+      </button>
     </div>
   );
 }
