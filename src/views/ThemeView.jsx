@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { ThemeEngine } from "../modules/theme/engine.js";
 
 // Phase‑8 Theme Engine
 import ThemeEngine from "../../public/modules/theme/engine.js";
