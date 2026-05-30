@@ -1,3 +1,4 @@
+
 import React from "react";
 
 import IdentityView from "../views/IdentityView.jsx";
@@ -9,7 +10,7 @@ import ConsoleView from "../views/ConsoleView.jsx";
 import DashboardView from "../views/DashboardView.jsx";
 import ThemeView from "../views/ThemeView.jsx";
 import AnimationView from "../views/AnimationView.jsx";
-import SoundView from "../views/SoundView.jsx"; y
+import SoundView from "../views/SoundView.jsx";
 import StorageView from "../views/StorageView.jsx";
 import NetworkView from "../views/NetworkView.jsx";
 import InspectorView from "../views/InspectorView.jsx";
@@ -17,6 +18,7 @@ import VFSView from "../views/VFSView.jsx";
 import SchedulerView from "../views/SchedulerView.jsx";
 import CloudView from "../views/CloudView.jsx";
 import PermissionsView from "../views/PermissionsView.jsx";
+import EventBusView from "../views/EventBusView.jsx";
 
 export default function Viewport({ active }) {
   if (active === "identity") return <IdentityView />;
@@ -36,6 +38,7 @@ export default function Viewport({ active }) {
   if (active === "scheduler") return <SchedulerView />;
   if (active === "cloud") return <CloudView />;
   if (active === "permissions") return <PermissionsView />;
+  if (active === "eventbus") return <EventBusView />;
 
   return (
     <div className="module-root">
