@@ -1,1 +1,74 @@
 
+:root {
+  --bg: #111;
+  --fg: #fff;
+  --panel: #1a1a1a;
+  --accent: #4da3ff;
+  --font: Inter;
+  --pad: 16px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font), sans-serif;
+}
+
+.nav-rail {
+  background: var(--panel);
+  padding: var(--pad);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-rail button {
+  background: transparent;
+  border: none;
+  color: var(--fg);
+  padding: var(--pad);
+  cursor: pointer;
+  text-align: left;
+  border-radius: 6px;
+}
+
+.nav-rail button.active {
+  background: var(--accent);
+  color: #000;
+}
+
+.module-root {
+  padding: calc(var(--pad) * 2);
+}
+
+.console-history {
+  background: var(--panel);
+  padding: var(--pad);
+  border-radius: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.console-entry {
+  margin-bottom: var(--pad);
+}
+
+.console-input {
+  font-weight: bold;
+}
+
+.console-output {
+  white-space: pre-wrap;
+  background: #0003;
+  padding: var(--pad);
+  border-radius: 4px;
+}
+
+.theme-section {
+  margin-bottom: calc(var(--pad) * 2);
+}
+
+.theme-section h3 {
+  margin-bottom: var(--pad);
+}
