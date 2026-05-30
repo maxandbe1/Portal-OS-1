@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { NavRail } from "./NavRail.jsx";
-import Viewport from "./Viewport.jsx";
+import {Viewport} from "./Viewport.jsx";
 
 export default function PortalShell() {
   const [active, setActive] = useState("identity");
