@@ -58,6 +58,13 @@ export function NavRail({ active, onSelect }) {
       >
         Theme
       </button>
+
+      <button
+        className={active === "animation" ? "active" : ""}
+        onClick={() => onSelect("animation")}
+      >
+        Animation
+      </button>
     </div>
   );
 }
