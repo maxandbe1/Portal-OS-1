@@ -28,7 +28,9 @@ window.Portal.registry.identity = {
   label: "Identity"
 };
 
+// Load order:
 // Theme → Animation → Sound → Storage → Network → Inspector → VFS → Scheduler → Cloud → Permissions → Everything else
+
 loadThemeModule(window.Portal);
 loadAnimationModule(window.Portal);
 loadSoundModule(window.Portal);
