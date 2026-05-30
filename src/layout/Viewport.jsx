@@ -9,6 +9,7 @@ import ConsoleView from "../views/ConsoleView.jsx";
 import DashboardView from "../views/DashboardView.jsx";
 import ThemeView from "../views/ThemeView.jsx";
 import AnimationView from "../views/AnimationView.jsx";
+import SoundView from "../views/SoundView.jsx";
 
 export default function Viewport({ active }) {
   if (active === "identity") return <IdentityView />;
@@ -20,6 +21,7 @@ export default function Viewport({ active }) {
   if (active === "dashboard") return <DashboardView />;
   if (active === "theme") return <ThemeView />;
   if (active === "animation") return <AnimationView />;
+  if (active === "sound") return <SoundView />;
 
   return (
     <div className="module-root">
