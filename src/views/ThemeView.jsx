@@ -1,153 +1,153 @@
 
-import { useState, useEffect } from "react";
+// File: src/views/ThemeView.jsx
+// Phase‑16 — Theme View (Editor + Live Preview + Theme Engine Integration)
+
+import React, { useState, useEffect } from "react";
 import { ThemeEngine } from "../modules/theme/engine.js";
 
-// Phase‑8 Theme Engine
-
-
-// Phase‑12 Sound Engine
-import SoundEngine from "../../public/modules/sound/engine.js";
-
-// Phase‑16 Permissions Layer
-import Permissions from "../../public/modules/permissions/engine.js";
-
-// Phase‑4 Console (corrected import)
-import Console from "../../public/modules/console/module-ui.js";
-
-// Phase‑17 Mesh EventBus
-import EventBus from "../../public/modules/eventbus/engine.js";
+// --------------------------------------------------
+// ThemeView Component
+// --------------------------------------------------
 
 export default function ThemeView() {
-  const [themeVars, setThemeVars] = useState({});
-  const [permissions, setPermissions] = useState({});
-  const [soundEnabled, setSoundEnabled] = useState(true);
-  const [meshStatus, setMeshStatus] = useState("idle");
+  const [theme, setTheme] = useState(ThemeEngine.load());
 
-  // Load Theme Engine
   useEffect(() => {
-    const vars = ThemeEngine.getAll();
-    setThemeVars(vars);
+    ThemeEngine.apply(theme);
   }, []);
 
-  // Load Permissions
-  useEffect(() => {
-    const p = Permissions.getAll();
-    setPermissions(p);
-  }, []);
+  function updateVar(key, value) {
+    const next = ThemeEngine.updateVar(theme, key, value);
+    setTheme(next);
+  }
 
-  // Load Sound Engine
-  useEffect(() => {
-    SoundEngine.init();
-  }, []);
-
-  // Phase‑17 Mesh Registration
-  useEffect(() => {
-    // Theme updates from mesh
-    const onThemeUpdate = ({ payload }) => {
-      const { key, value } = payload;
-      ThemeEngine.set(key, value);
-      setThemeVars((prev) => ({ ...prev, [key]: value }));
-    };
-
-    // Permission updates from mesh
-    const onPermissionsUpdate = ({ payload }) => {
-      const { key, value } = payload;
-      Permissions.set(key, value);
-      setPermissions((prev) => ({ ...prev, [key]: value }));
-    };
-
-    // Sound toggle from mesh
-    const onSoundToggle = () => {
-      setSoundEnabled((prev) => !prev);
-      SoundEngine.toggle();
-    };
-
-    // Mesh heartbeat listener
-    const onMeshPing = ({ payload }) => {
-      setMeshStatus(`Ping from ${payload.source}`);
-    };
-
-    EventBus.register("theme:update", onThemeUpdate);
-    EventBus.register("permissions:update", onPermissionsUpdate);
-    EventBus.register("sound:toggle", onSoundToggle);
-    EventBus.register("mesh:ping", onMeshPing);
-
-    // Emit heartbeat on mount
-    EventBus.emit("mesh:ping", { source: "ThemeView" });
-
-    return () => {
-      EventBus.unregister("theme:update", onThemeUpdate);
-      EventBus.unregister("permissions:update", onPermissionsUpdate);
-      EventBus.unregister("sound:toggle", onSoundToggle);
-      EventBus.unregister("mesh:ping", onMeshPing);
-    };
-  }, []);
-
-  // Emit theme update
-  const updateTheme = (key, value) => {
-    ThemeEngine.set(key, value);
-    setThemeVars((prev) => ({ ...prev, [key]: value }));
-    EventBus.emit("theme:changed", { key, value });
-  };
-
-  // Emit permission update
-  const updatePermission = (key, value) => {
-    Permissions.set(key, value);
-    setPermissions((prev) => ({ ...prev, [key]: value }));
-    EventBus.emit("permissions:changed", { key, value });
-  };
+  function reset() {
+    const next = ThemeEngine.reset();
+    setTheme(next);
+  }
 
   return (
-    <div className="theme-view">
-      <h1>Theme Engine — Phase 17 Mesh</h1>
+    <div className="theme-view" style={styles.container}>
+      <h1 style={styles.header}>Theme Editor</h1>
 
-      <div className="mesh-status">
-        <strong>Mesh Status:</strong> {meshStatus}
+      <div style={styles.section}>
+        <label style={styles.label}>Background</label>
+        <input
+          type="color"
+          value={theme["--bg"]}
+          onChange={(e) => updateVar("--bg", e.target.value)}
+          style={styles.input}
+        />
       </div>
 
-      {/* THEME VARIABLES */}
-      <section>
-        <h2>Theme Variables</h2>
-        {Object.keys(themeVars).map((key) => (
-          <div key={key} className="theme-row">
-            <label>{key}</label>
-            <input
-              type="text"
-              value={themeVars[key]}
-              onChange={(e) => updateTheme(key, e.target.value)}
-            />
-          </div>
-        ))}
-      </section>
+      <div style={styles.section}>
+        <label style={styles.label}>Foreground</label>
+        <input
+          type="color"
+          value={theme["--fg"]}
+          onChange={(e) => updateVar("--fg", e.target.value)}
+          style={styles.input}
+        />
+      </div>
 
-      {/* PERMISSIONS */}
-      <section>
-        <h2>Permissions</h2>
-        {Object.keys(permissions).map((key) => (
-          <div key={key} className="permission-row">
-            <label>{key}</label>
-            <input
-              type="checkbox"
-              checked={permissions[key]}
-              onChange={(e) => updatePermission(key, e.target.checked)}
-            />
-          </div>
-        ))}
-      </section>
+      <div style={styles.section}>
+        <label style={styles.label}>Panel</label>
+        <input
+          type="color"
+          value={theme["--panel"]}
+          onChange={(e) => updateVar("--panel", e.target.value)}
+          style={styles.input}
+        />
+      </div>
 
-      {/* SOUND ENGINE */}
-      <section>
-        <h2>Sound Engine</h2>
-        <button onClick={() => EventBus.emit("sound:toggle")}>
-          {soundEnabled ? "Disable Sound" : "Enable Sound"}
-        </button>
-      </section>
+      <div style={styles.section}>
+        <label style={styles.label}>Accent</label>
+        <input
+          type="color"
+          value={theme["--accent"]}
+          onChange={(e) => updateVar("--accent", e.target.value)}
+          style={styles.input}
+        />
+      </div>
 
-      {/* CONSOLE */}
-      <section>
-        <h2>Console</h2>
-        <Console />
-      </section>
+      <div style={styles.section}>
+        <label style={styles.label}>Font</label>
+        <input
+          type="text"
+          value={theme["--font"]}
+          onChange={(e) => updateVar("--font", e.target.value)}
+          style={styles.textInput}
+        />
+      </div>
+
+      <div style={styles.section}>
+        <label style={styles.label}>Padding</label>
+        <input
+          type="text"
+          value={theme["--pad"]}
+          onChange={(e) => updateVar("--pad", e.target.value)}
+          style={styles.textInput}
+        />
+      </div>
+
+      <button onClick={reset} style={styles.resetButton}>
+        Reset Theme
+      </button>
     </div>
   );
 }
+
+// --------------------------------------------------
+// Inline Styles
+// --------------------------------------------------
+
+const styles = {
+  container: {
+    padding: "20px",
+    color: "var(--fg)",
+    background: "var(--bg)",
+    minHeight: "100vh",
+    fontFamily: "var(--font)"
+  },
+  header: {
+    fontSize: "28px",
+    marginBottom: "20px"
+  },
+  section: {
+    marginBottom: "16px",
+    display: "flex",
+    flexDirection: "column",
+    maxWidth: "240px"
+  },
+  label: {
+    marginBottom: "6px",
+    fontSize: "14px",
+    opacity: 0.8
+  },
+  input: {
+    width: "100%",
+    height: "40px",
+    borderRadius: "6px",
+    border: "1px solid #333",
+    background: "#222"
+  },
+  textInput: {
+    width: "100%",
+    height: "40px",
+    borderRadius: "6px",
+    border: "1px solid #333",
+    background: "#222",
+    color: "var(--fg)",
+    paddingLeft: "10px"
+  },
+  resetButton: {
+    marginTop: "20px",
+    padding: "10px 16px",
+    background: "var(--accent)",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+    color: "#000",
+    fontWeight: "bold"
+  }
+};
