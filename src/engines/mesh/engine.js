@@ -1,59 +1,116 @@
-// src/engines/mesh/engine.js
+// -------------------------------------------------------------
+// Portal OS — Mesh Engine
+// File: src/engines/mesh/engine.js
+// Author: Max & Copilot
+// Phase: 17 — Mesh Engine Core Runtime
+// -------------------------------------------------------------
 
-import { publish } from "../eventbus/engine.js";
+import { MeshEngineEventBus } from "./MeshEngineEventBus.js";
+import { MeshEngineStateMachine } from "./MeshEngineStateMachine.js";
+import { createMeshCore } from "./MeshEngineCore.js";
 
-let peers = {};
-let myId = "peer-" + Math.random().toString(36).slice(2);
-let messageHandlers = [];
+// -------------------------------------------------------------
+// MeshEngine
+// -------------------------------------------------------------
+export class MeshEngine {
+  constructor(config = {}) {
+    this.config = {
+      tickRate: config.tickRate ?? 60,
+      debug: config.debug ?? false,
+      ...config,
+    };
 
-export function getId() {
-  return myId;
-}
+    this.eventBus = new MeshEngineEventBus();
+    this.state = new MeshEngineStateMachine();
+    this.core = createMeshCore(this.eventBus, this.state, this.config);
 
-export function joinMesh(peerList = []) {
-  peerList.forEach(p => {
-    peers[p.id] = p;
-  });
+    this._tickHandle = null;
+    this._lastTick = performance.now();
 
-  publish("mesh.join", { id: myId, peers });
-}
-
-export function leaveMesh() {
-  publish("mesh.leave", { id: myId });
-  peers = {};
-}
-
-export function getPeers() {
-  return peers;
-}
-
-export function onMessage(handler) {
-  messageHandlers.push(handler);
-}
-
-export function receiveMessage(from, msg) {
-  messageHandlers.forEach(h => {
-    try {
-      h(from, msg);
-    } catch (err) {
-      console.error("Mesh handler error:", err);
+    if (this.config.debug) {
+      console.log("[MeshEngine] Initialized", this.config);
     }
-  });
+  }
 
-  publish("mesh.message", { from, msg });
+  // -------------------------------------------------------------
+  // Start Engine
+  // -------------------------------------------------------------
+  start() {
+    if (this.state.isRunning()) return;
+
+    this.state.setRunning(true);
+    this._lastTick = performance.now();
+    this._tickHandle = requestAnimationFrame(this._tick.bind(this));
+
+    this.eventBus.emit("engine:start");
+
+    if (this.config.debug) {
+      console.log("[MeshEngine] Started");
+    }
+  }
+
+  // -------------------------------------------------------------
+  // Stop Engine
+  // -------------------------------------------------------------
+  stop() {
+    if (!this.state.isRunning()) return;
+
+    this.state.setRunning(false);
+    cancelAnimationFrame(this._tickHandle);
+    this._tickHandle = null;
+
+    this.eventBus.emit("engine:stop");
+
+    if (this.config.debug) {
+      console.log("[MeshEngine] Stopped");
+    }
+  }
+
+  // -------------------------------------------------------------
+  // Tick Loop
+  // -------------------------------------------------------------
+  _tick(now) {
+    if (!this.state.isRunning()) return;
+
+    const delta = now - this._lastTick;
+    const step = 1000 / this.config.tickRate;
+
+    if (delta >= step) {
+      this._lastTick = now;
+      this.core.update(delta);
+      this.eventBus.emit("engine:tick", { delta });
+    }
+
+    this._tickHandle = requestAnimationFrame(this._tick.bind(this));
+  }
+
+  // -------------------------------------------------------------
+  // Public API
+  // -------------------------------------------------------------
+  on(event, handler) {
+    return this.eventBus.on(event, handler);
+  }
+
+  off(event, handler) {
+    return this.eventBus.off(event, handler);
+  }
+
+  emit(event, payload) {
+    return this.eventBus.emit(event, payload);
+  }
+
+  getState() {
+    return this.state.getSnapshot();
+  }
+
+  getCore() {
+    return this.core;
+  }
 }
 
-export function broadcast(msg) {
-  Object.keys(peers).forEach(peerId => {
-    peers[peerId].receive(myId, msg);
-  });
-
-  publish("mesh.broadcast", { from: myId, msg });
-}
-
-export function send(peerId, msg) {
-  if (!peers[peerId]) return;
-
-  peers[peerId].receive(myId, msg);
-  publish("mesh.send", { from: myId, to: peerId, msg });
+// -------------------------------------------------------------
+// Factory
+// -------------------------------------------------------------
+export function createMeshEngine(config = {}) {
+  return new MeshEngine(config);
 }
