@@ -6,6 +6,8 @@ import { loadSoundModule } from "../modules/sound/index.js";
 import { loadStorageModule } from "../modules/storage/index.js";
 import { loadNetworkModule } from "../modules/network/index.js";
 import { loadInspectorModule } from "../modules/inspector/index.js";
+import { loadVFSModule } from "../modules/vfs/index.js";
+import { loadSchedulerModule } from "../modules/scheduler/index.js";
 
 import { loadMemoryModule } from "../modules/memory/index.js";
 import { loadPatternModule } from "../modules/pattern/index.js";
@@ -23,9 +25,7 @@ window.Portal.registry.identity = {
   label: "Identity"
 };
 
-import { loadVFSModule } from "../modules/vfs/index.js";
-
-// Theme → Animation → Sound → Storage → Network → Inspector → VFS → Everything else
+// Theme → Animation → Sound → Storage → Network → Inspector → VFS → Scheduler → Everything else
 loadThemeModule(window.Portal);
 loadAnimationModule(window.Portal);
 loadSoundModule(window.Portal);
@@ -33,6 +33,7 @@ loadStorageModule(window.Portal);
 loadNetworkModule(window.Portal);
 loadInspectorModule(window.Portal);
 loadVFSModule(window.Portal);
+loadSchedulerModule(window.Portal);
 
 loadMemoryModule(window.Portal);
 loadPatternModule(window.Portal);
